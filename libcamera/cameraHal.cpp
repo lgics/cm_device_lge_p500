@@ -142,7 +142,11 @@ CameraHAL_CopyBuffers_Hw(int srcFd, int destFd,
 
     blit.req.dst.width     = w;
     blit.req.dst.height    = h;
+#ifndef BINDER_COMPAT
     blit.req.dst.offset    = destOffset;
+#else
+    blit.req.dst.offset    = 0;
+#endif
     blit.req.dst.memory_id = destFd;
     blit.req.dst.format    = destFormat;
 

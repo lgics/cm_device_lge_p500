@@ -1,7 +1,16 @@
-USE_CAMERA_STUB := true
+# WARNING: This line must come *before* including the proprietary
+# variant, so that it gets overwritten by the parent (which goes
+# against the traditional rules of inheritance).
+USE_CAMERA_STUB := false
 
 # Inherit from the proprietary version
 -include vendor/lge/p500/BoardConfigVendor.mk
+
+# Camera
+# http://r.cyanogenmod.com/#/c/13317/
+COMMON_GLOBAL_CFLAGS += -DBINDER_COMPAT
+BOARD_CAMERA_USE_GETBUFFERINFO := true
+BOARD_USE_CAF_LIBCAMERA := true
 
 # Kernel
 TARGET_KERNEL_SOURCE := kernel/lge/p500
@@ -12,11 +21,13 @@ TARGET_KERNEL_CONFIG := cyanogenmod_p500_defconfig
 TARGET_BOARD_PLATFORM := msm7x27
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
 
+# CPU
+ARCH_ARM_HAVE_VFP := true
 TARGET_CPU_ABI := armeabi-v6l
 TARGET_CPU_ABI2 := armeabi
 TARGET_ARCH_VARIANT := armv6-vfp
-ARCH_ARM_HAVE_VFP := true
 
+# Boot loader
 TARGET_NO_BOOTLOADER := true
 TARGET_BOOTLOADER_BOARD_NAME := p500
 TARGET_SPECIFIC_HEADER_PATH := device/lge/p500/include
@@ -37,6 +48,7 @@ TARGET_LIBAGL_USE_GRALLOC_COPYBITS := true
 BOARD_NO_ALLOW_DEQUEUE_CURRENT_BUFFER := true
 BOARD_EGL_CFG := vendor/lge/p500/proprietary/lib/egl/egl.cfg
 
+# http://www.slideshare.net/jserv/design-and-concepts-of-android-graphics
 COMMON_GLOBAL_CFLAGS += -DTARGET_MSM7x27 -DQCOM_HARDWARE
 COMMON_GLOBAL_CFLAGS += -DMISSING_GRALLOC_BUFFERS -DREFRESH_RATE=60
 
@@ -89,10 +101,6 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/usb_mass_storage/lun0/f
 
 # Touch screen compatibility for ICS
 BOARD_USE_LEGACY_TOUCHSCREEN := true
-
-# Camera
-BOARD_CAMERA_USE_GETBUFFERINFO := true
-BOARD_USE_CAF_LIBCAMERA := true
 
 # Wireless
 BOARD_WLAN_DEVICE               := bcm4325
