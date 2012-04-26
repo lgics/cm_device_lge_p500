@@ -9,12 +9,15 @@ USE_CAMERA_STUB := false
 # Camera
 # http://r.cyanogenmod.com/#/c/13317/
 COMMON_GLOBAL_CFLAGS += -DBINDER_COMPAT
-BOARD_CAMERA_USE_GETBUFFERINFO := true
-BOARD_USE_CAF_LIBCAMERA := true
+#BOARD_CAMERA_USE_GETBUFFERINFO := true
+#BOARD_USE_CAF_LIBCAMERA := true
+# This is needed by libcamera.so
+BOARD_USE_NASTY_PTHREAD_CREATE_HACK := true
 
 # Kernel
 TARGET_KERNEL_SOURCE := kernel/lge/p500
 TARGET_KERNEL_CONFIG := cyanogenmod_p500_defconfig
+TARGET_SPECIFIC_HEADER_PATH := device/lge/p500/include
 #TARGET_PREBUILT_KERNEL := device/lge/p500/prebuilt/zImage
 
 # Platform
@@ -30,7 +33,6 @@ TARGET_ARCH_VARIANT := armv6-vfp
 # Boot loader
 TARGET_NO_BOOTLOADER := true
 TARGET_BOOTLOADER_BOARD_NAME := p500
-TARGET_SPECIFIC_HEADER_PATH := device/lge/p500/include
 TARGET_OTA_ASSERT_DEVICE := thunderg,p500
 
 # QCOM Hardware

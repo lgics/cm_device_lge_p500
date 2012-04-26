@@ -33,7 +33,7 @@
 /dev/uinput               0660   system     bluetooth
 /dev/alarm                0664   system     radio
 /dev/tty0                 0660   root       system
-/dev/graphics/*           0660   root       graphics
+/dev/graphics/*           0660   media      graphics
 /dev/msm_hw3dm            0660   system     graphics
 /dev/msm_rotator          0660   system     graphics
 /dev/input/*              0660   root       input
@@ -44,11 +44,13 @@
 /dev/pmem_adsp*           0660   system     audio
 /dev/pmem_smipool*        0660   system     camera
 /dev/pmem_camera*         0660   system     camera
+/dev/msm_camera/*         0660   media      system
+
 /dev/oncrpc/*             0660   root       qcom_oncrpc
 /dev/adsp/*               0660   system     audio
 /dev/snd/*                0660   system     audio
 /dev/mt9t013              0660   system     system
-/dev/msm_camera/*         0660   system     camera
+
 /dev/akm8976_daemon       0640   compass    system
 /dev/akm8976_aot          0640   compass    system
 /dev/akm8973_daemon       0640   compass    system
@@ -118,8 +120,7 @@
 # sysfs properties
 /sys/devices/virtual/input/input*   enable      0660  root   input
 /sys/devices/virtual/input/input*   poll_delay  0660  root   input
-#permissions for video
-/dev/msm_vidc*            0660    system    graphics
+
 #permissions for audio
 /dev/msm_amrnb            0660  system       audio
 /dev/msm_amrwb            0660  system       audio
@@ -158,7 +159,7 @@
 
 # video encoder on 720p-enabled 8k targets
 /dev/pmem_venc            0660   system     audio
-/dev/msm_vidc*            0777   system     graphics
+/dev/msm_vidc*            0660   system     graphics
 
 /dev/oncrpc/*             0660  system	     qcom_oncrpc
 /dev/ami304hal		  0640  compass	     system

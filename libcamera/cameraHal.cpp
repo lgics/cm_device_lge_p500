@@ -694,3 +694,4 @@ qcamera_device_open(const hw_module_t* module, const char* name,
    return NO_ERROR;
 }
 
+

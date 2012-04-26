@@ -18,7 +18,6 @@ lib/libnv.so
 lib/libauth.so
 lib/libril.so
 lib/libwms.so
-lib/libgsl.so
 lib/libdiag.so
 lib/liboem_rapi.so
 lib/libgsdi_exp.so
@@ -41,7 +40,7 @@ lib/libaudioeq.so
 
 ## CAMERA
 lib/liboemcamera.so
-#lib/libcamera.so
+lib/libcamera.so
 lib/libmmjpeg.so
 lib/libmmipl.so
 
@@ -63,7 +62,7 @@ lib/egl/libGLES_android.so
 lib/egl/eglsubAndroid.so
 lib/libsc-a2xx.so
 lib/libgsl.so
-/lib/egl/egl.cfg
+lib/egl/egl.cfg
 etc/firmware/yamato_pfp.fw
 etc/firmware/yamato_pm4.fw
 
