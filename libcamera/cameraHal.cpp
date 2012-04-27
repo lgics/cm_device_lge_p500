@@ -42,6 +42,7 @@ struct qcom_mdp_img {
    int32_t  format;
    int32_t  offset;
    int      memory_id; /* The file descriptor */
+   uint32_t priv; // CONFIG_ANDROID_PMEM
 };
 
 struct qcom_mdp_blit_req {
@@ -52,6 +53,7 @@ struct qcom_mdp_blit_req {
    uint32_t alpha;
    uint32_t transp_mask;
    uint32_t flags;
+   int sharpening_strength;  /* -127 <--> 127, default 64 */
 };
 
 struct blitreq {
@@ -133,6 +135,7 @@ CameraHAL_CopyBuffers_Hw(int srcFd, int destFd,
     blit.req.flags       = 0;
     blit.req.alpha       = 0xff;
     blit.req.transp_mask = 0xffffffff;
+    blit.req.sharpening_strength = 64;  /* -127 <--> 127, default 64 */
 
     blit.req.src.width     = w;
     blit.req.src.height    = h;
@@ -197,7 +200,7 @@ CameraHAL_HandlePreviewData(const android::sp<android::IMemory>& dataPtr,
       ssize_t  offset;
       size_t   size;
       int32_t  previewFormat = MDP_Y_CBCR_H2V2;
-      int32_t  destFormat    = MDP_RGBA_8888;
+      int32_t  destFormat    = MDP_RGBX_8888;
 
       android::status_t retVal;
       android::sp<android::IMemoryHeap> mHeap = dataPtr->getMemory(&offset,
@@ -213,7 +216,7 @@ CameraHAL_HandlePreviewData(const android::sp<android::IMemory>& dataPtr,
 
       retVal = mWindow->set_buffers_geometry(mWindow,
                                              previewWidth, previewHeight,
-                                             HAL_PIXEL_FORMAT_RGBA_8888);
+                                             HAL_PIXEL_FORMAT_RGBX_8888);
       if (retVal == NO_ERROR) {
          int32_t          stride;
          buffer_handle_t *bufHandle = NULL;
