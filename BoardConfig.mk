@@ -17,6 +17,7 @@ BOARD_USE_NASTY_PTHREAD_CREATE_HACK := true
 # Kernel
 TARGET_KERNEL_SOURCE := kernel/lge/p500
 TARGET_KERNEL_CONFIG := cyanogenmod_p500_defconfig
+# Copy LG Kernel Headers here if necessary, DON'T use Adroid auto-generated headers
 TARGET_SPECIFIC_HEADER_PATH := device/lge/p500/include
 #TARGET_PREBUILT_KERNEL := device/lge/p500/prebuilt/zImage
 
