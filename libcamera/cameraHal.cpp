@@ -26,7 +26,7 @@
 #include <gralloc_priv.h>
 
 #define NO_ERROR 0
-#define LOGV LOGI
+///////#define LOGV LOGI
 #define GRALLOC_USAGE_PMEM_PRIVATE_ADSP GRALLOC_USAGE_PRIVATE_0
 
 struct qcom_mdp_rect {

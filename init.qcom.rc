@@ -9,7 +9,7 @@ on early-init
 
     mkdir /system
     mkdir /data 0771 system system
-    mkdir /cache 0770 system cache
+    mkdir /cache 0771 system cache
     mkdir /mnt/sdcard 0000 system system
     mkdir /sd-ext 0771 system system
 
