@@ -3,7 +3,6 @@
     <bool name="config_batterySdCardAccessibility">true</bool>
     <bool name="config_animateScreenLights">false</bool>
     <bool name="config_unplugTurnsOnScreen">true</bool>
-    <string name="default_wallpaper_component">com.android.wallpaper/.nexus.NexusWallpaper</string>
     <bool name="config_sf_slowBlur">true</bool>
     <bool name="config_sf_limitedAlpha">false</bool>
 
