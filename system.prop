@@ -18,7 +18,9 @@ ro.telephony.ril.v3=signalstrength,skipbrokendatacall,facilitylock,datacall,iccc
 
 
 # modified camera blob wants this
-ro.product.camera=thunderg
+# use gralloc.msm7x27
+ro.product.camera=msm7x27
+debug.camcorder.disablemeta=1
 
 ro.bt.bdaddr_path=/data/misc/bd_addr
 

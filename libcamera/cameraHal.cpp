@@ -29,36 +29,9 @@
 ///////#define LOGV LOGI
 #define GRALLOC_USAGE_PMEM_PRIVATE_ADSP GRALLOC_USAGE_PRIVATE_0
 
-struct qcom_mdp_rect {
-   uint32_t x;
-   uint32_t y;
-   uint32_t w;
-   uint32_t h;
-};
-
-struct qcom_mdp_img {
-   uint32_t width;
-   int32_t  height;
-   int32_t  format;
-   int32_t  offset;
-   int      memory_id; /* The file descriptor */
-   uint32_t priv; // CONFIG_ANDROID_PMEM
-};
-
-struct qcom_mdp_blit_req {
-   struct   qcom_mdp_img src;
-   struct   qcom_mdp_img dst;
-   struct   qcom_mdp_rect src_rect;
-   struct   qcom_mdp_rect dst_rect;
-   uint32_t alpha;
-   uint32_t transp_mask;
-   uint32_t flags;
-   int sharpening_strength;  /* -127 <--> 127, default 64 */
-};
-
 struct blitreq {
    unsigned int count;
-   struct qcom_mdp_blit_req req;
+   struct mdp_blit_req req;
 };
 
 /* Prototypes and extern functions. */
