@@ -101,6 +101,7 @@ PRODUCT_PACKAGES += \
 # Tiny alsa
 PRODUCT_PACKAGES += \
     libtinyalsa \
+    libaudioutils \
     tinyplay \
     tinycap \
     tinymix
@@ -120,13 +121,15 @@ PRODUCT_PACKAGES += \
 # QCOM OMX
 PRODUCT_PACKAGES += \
     libstagefrighthw \
-    libdivxdrmdecrypt \
-    libOmxVdec \
-    libOmxVenc \
-    libOmxAacEnc \
-    libOmxAmrEnc \
-    libmm-omxcore \
     libOmxCore
+
+#    libdivxdrmdecrypt \
+#    libOmxVdec \
+#    libOmxVenc \
+#    libOmxAacEnc \
+#    libOmxAmrEnc \
+#    libmm-omxcore \
+
 
 # Misc
 PRODUCT_PACKAGES += \

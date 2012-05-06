@@ -43,7 +43,6 @@
 /dev/pmem_audio           0660   system     audio
 /dev/pmem_adsp*           0660   system     audio
 /dev/pmem_smipool*        0660   system     camera
-/dev/pmem_camera*         0660   system     camera
 /dev/msm_camera/*         0660   media      system
 
 /dev/oncrpc/*             0660   root       qcom_oncrpc
