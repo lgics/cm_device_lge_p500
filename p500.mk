@@ -92,11 +92,18 @@ PRODUCT_COPY_FILES += packages/wallpapers/LivePicker/android.software.live_wallp
 # Touch screen
 PRODUCT_COPY_FILES += vendor/lge/p500/proprietary/usr/idc/touch_mcs6000.idc:system/usr/idc/touch_mcs6000.idc
 
-# Audio
+# Audio HAL
 PRODUCT_PACKAGES += \
     audio_policy.p500 \
     audio.primary.p500 \
     audio.a2dp.default
+
+# Tiny alsa
+PRODUCT_PACKAGES += \
+    libtinyalsa \
+    tinyplay \
+    tinycap \
+    tinymix
 
 # Display
 PRODUCT_PACKAGES += \

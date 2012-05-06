@@ -33,26 +33,25 @@ on init
 
 # Define the memory thresholds at which the above process classes will
 # be killed.  These numbers are in pages (4k).
-    setprop ro.FOREGROUND_APP_MEM 3584
-    setprop ro.VISIBLE_APP_MEM 4096
-    setprop ro.SECONDARY_SERVER_MEM 6144
-    setprop ro.BACKUP_APP_MEM 6144
-    setprop ro.HOME_APP_MEM 6144
-    setprop ro.HIDDEN_APP_MEM 7168
-    setprop ro.CONTENT_PROVIDER_MEM 7680
-    setprop ro.EMPTY_APP_MEM 8192
+  setprop ro.FOREGROUND_APP_MEM 1536
+  setprop ro.VISIBLE_APP_MEM 2048
+  setprop ro.SECONDARY_SERVER_MEM 4096
+  setprop ro.BACKUP_APP_MEM 4096
+  setprop ro.HOME_APP_MEM 4096
+  setprop ro.HIDDEN_APP_MEM 5120
+  setprop ro.CONTENT_PROVIDER_MEM 5632
+  setprop ro.EMPTY_APP_MEM 6144
 
-# Overwrite framework low memory killer minfree setting
-    write /sys/module/lowmemorykiller/parameters/minfree 3584,4096,6144,7168,7680,8192
-
+# Import Froyo LMK settings due to its less aggressive nature
+  write /sys/module/lowmemorykiller/parameters/minfree 1536,2048,4096,5120,5632,6144
 # Enable low memory killer to check file pages
-    write /sys/module/lowmemorykiller/parameters/minfile 0,0,0,5120,5632,6144
-    write /sys/module/lowmemorykiller/parameters/check_filepages 1
+  write /sys/module/lowmemorykiller/parameters/minfile 0,0,0,5120,5632,6144
+  write /sys/module/lowmemorykiller/parameters/check_filepages 1
 
 # fix for enropy service and some other that failed
-   chmod 0755 /data/system/appwidgets.xml
-   chmod 0755 /data/system/entropy.dat
-   chmod 0755 /data/system/wallpaper_info.xml
+  chmod 0755 /data/system/appwidgets.xml
+  chmod 0755 /data/system/entropy.dat
+  chmod 0755 /data/system/wallpaper_info.xml
 
 
 
