@@ -419,7 +419,8 @@ CameraHAL_GetCam_Info(int camera_id, struct camera_info *info)
 void
 CameraHAL_FixupParams(android::CameraParameters &settings)
 {
-
+// FIXME TODO
+#if 0
    const char *preview_sizes =
       "1280x720,800x480,768x432,720x480,640x480,576x432,480x320,384x288,352x288,320x240,240x160,176x144";
    const char *video_sizes =
@@ -466,6 +467,7 @@ CameraHAL_FixupParams(android::CameraParameters &settings)
       settings.set(android::CameraParameters::KEY_SUPPORTED_PREVIEW_FPS_RANGE,
                    frame_rate_range);
    }
+#endif
 }
 
 /* Hardware Camera interface handlers. */
@@ -579,12 +581,12 @@ int
 qcamera_start_recording(struct camera_device * device)
 {
    LOGV("qcamera_start_recording\n");
-
+/*
    if (qcamera_preview_enabled(device)){
        LOGD("Preview was enabled");
        qcamera_stop_preview(device);
    }
-
+*/
    qCamera->enableMsgType(CAMERA_MSG_VIDEO_FRAME);
    qCamera->startRecording();
 
@@ -598,8 +600,9 @@ qcamera_stop_recording(struct camera_device * device)
 
    qCamera->disableMsgType(CAMERA_MSG_VIDEO_FRAME);
    qCamera->stopRecording();
-
+/*
    qcamera_start_preview(device);
+*/
 }
 
 int

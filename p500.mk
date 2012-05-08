@@ -118,18 +118,12 @@ PRODUCT_PACKAGES += \
     copybit.msm7x27 \
     hwcomposer.msm7x27
 
-# QCOM OMX
+# QCOM OMX (core)
 PRODUCT_PACKAGES += \
     libstagefrighthw \
-    libOmxCore
-
-#    libdivxdrmdecrypt \
-#    libOmxVdec \
-#    libOmxVenc \
-#    libOmxAacEnc \
-#    libOmxAmrEnc \
-#    libmm-omxcore \
-
+    libmm-omxcore \
+    libOmxCore \
+    libdivxdrmdecrypt
 
 # Misc
 PRODUCT_PACKAGES += \
