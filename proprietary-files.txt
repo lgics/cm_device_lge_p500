@@ -62,7 +62,6 @@ lib/egl/libGLES_android.so
 lib/egl/eglsubAndroid.so
 lib/libsc-a2xx.so
 lib/libgsl.so
-lib/egl/egl.cfg
 etc/firmware/yamato_pfp.fw
 etc/firmware/yamato_pm4.fw
 

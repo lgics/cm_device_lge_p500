@@ -40,7 +40,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thunder_keypad.kl:system/usr/keylayout/thunder_keypad.kl \
     $(LOCAL_PATH)/configs/thunder_keypad.kcm.bin:system/usr/keychars/thunder_keypad.kcm.bin \
     $(LOCAL_PATH)/configs/7k_handset.kl:system/usr/keylayout/7k_handset.kl \
-    $(LOCAL_PATH)/configs/adreno_config.txt:system/etc/adreno_config.txt
+    $(LOCAL_PATH)/configs/adreno_config.txt:system/etc/adreno_config.txt \
+    $(LOCAL_PATH)/configs/touch_mcs6000.idc:system/usr/idc/touch_mcs6000.idc
 
 # Wi-Fi
 PRODUCT_COPY_FILES += \
@@ -88,9 +89,6 @@ PRODUCT_PACKAGES += \
 
 # Live wallpaper permission
 PRODUCT_COPY_FILES += packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml
-
-# Touch screen
-PRODUCT_COPY_FILES += vendor/lge/p500/proprietary/usr/idc/touch_mcs6000.idc:system/usr/idc/touch_mcs6000.idc
 
 # Audio HAL
 PRODUCT_PACKAGES += \

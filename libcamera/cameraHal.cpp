@@ -420,7 +420,7 @@ void
 CameraHAL_FixupParams(android::CameraParameters &settings)
 {
 // FIXME TODO
-#if 0
+
    const char *preview_sizes =
       "1280x720,800x480,768x432,720x480,640x480,576x432,480x320,384x288,352x288,320x240,240x160,176x144";
    const char *video_sizes =
@@ -433,6 +433,7 @@ CameraHAL_FixupParams(android::CameraParameters &settings)
    settings.set(android::CameraParameters::KEY_VIDEO_FRAME_FORMAT,
                 android::CameraParameters::PIXEL_FORMAT_YUV420SP);
 
+#if 0
    if (!settings.get(android::CameraParameters::KEY_SUPPORTED_PREVIEW_SIZES)) {
       settings.set(android::CameraParameters::KEY_SUPPORTED_PREVIEW_SIZES,
                    preview_sizes);
