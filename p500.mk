@@ -1,3 +1,6 @@
+PRODUCT_AAPT_CONFIG := normal mdpi
+PRODUCT_AAPT_PREF_CONFIG := mdpi
+
 # All languages
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
