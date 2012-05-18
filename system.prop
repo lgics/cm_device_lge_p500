@@ -15,6 +15,7 @@ persist.rild.nitz_short_ons_2=
 persist.rild.nitz_short_ons_3=
 ro.telephony.default_network=0
 ro.telephony.call_ring.multiple=false
+ro.telephony.call_ring.delay=3000
 ro.telephony.ril.v3=signalstrength,skipbrokendatacall,facilitylock,datacall,icccardstatus,1
 mobiledata.interfaces=rmnet0,rmnet1,rmnet2
 
