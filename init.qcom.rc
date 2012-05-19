@@ -152,9 +152,9 @@ service chargerlogo /sbin/chargerlogo
     user root
 
 service qmuxd /system/bin/qmuxd
-    class main
+    class core
     user radio
-    group radio audio bluetooth
+    group radio audio inet bluetooth
 
 service ami304d /system/bin/ami304d
     class main

@@ -97,10 +97,8 @@ WITH_JIT := true
 ENABLE_JSC_JIT := true
 
 # Mass Storage for ICS
-#BOARD_USE_USB_MASS_STORAGE_SWITCH := true
-#BOARD_CUSTOM_USB_CONTROLLER := ../../device/lge/p500/prebuilt/UsbController.cpp
-BOARD_UMS_LUNFILE := /sys/devices/platform/msm_hsusb/gadget/lun0/file
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/usb_mass_storage/lun0/file
+BOARD_UMS_LUNFILE := /sys/devices/platform/msm_hsusb/gadget/lun0/file
 
 # Touch screen compatibility for ICS
 BOARD_USE_LEGACY_TOUCHSCREEN := true
