@@ -40,6 +40,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/AudioFilter.csv:system/etc/AudioFilter.csv \
     $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml \
+    $(LOCAL_PATH)/configs/vold.fstab:system/etc/vold.fstab \
     $(LOCAL_PATH)/configs/thunder_keypad.kl:system/usr/keylayout/thunder_keypad.kl \
     $(LOCAL_PATH)/configs/thunder_keypad.kcm.bin:system/usr/keychars/thunder_keypad.kcm.bin \
     $(LOCAL_PATH)/configs/7k_handset.kl:system/usr/keylayout/7k_handset.kl \
