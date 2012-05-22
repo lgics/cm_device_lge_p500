@@ -50,6 +50,7 @@ TARGET_USES_GENLOCK := true
 TARGET_LIBAGL_USE_GRALLOC_COPYBITS := true
 BOARD_NO_ALLOW_DEQUEUE_CURRENT_BUFFER := true
 BOARD_EGL_CFG := device/lge/p500/configs/egl.cfg
+BOARD_ADRENO_DECIDE_TEXTURE_TARGET := true
 
 # http://www.slideshare.net/jserv/design-and-concepts-of-android-graphics
 COMMON_GLOBAL_CFLAGS += -DTARGET_MSM7x27 -DQCOM_HARDWARE
