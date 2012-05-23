@@ -98,8 +98,9 @@ WITH_JIT := true
 ENABLE_JSC_JIT := true
 
 # Mass Storage for ICS
-TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/usb_mass_storage/lun0/file
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun/file
 BOARD_UMS_LUNFILE := /sys/devices/platform/msm_hsusb/gadget/lun0/file
+BOARD_SDCARD_INTERNAL_DEVICE := /dev/block/mmcblk0p1
 
 # Touch screen compatibility for ICS
 BOARD_USE_LEGACY_TOUCHSCREEN := true

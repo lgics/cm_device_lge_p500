@@ -39,6 +39,7 @@ ro.bt.bdaddr_path=/data/misc/bd_addr
 
 # USB for ICS
 # etc/init.qcom.post_boot.sh
+persist.sys.usb.config=mass_storage
 
 ## We support GLES2
 ro.opengles.version=131072
