@@ -12,6 +12,11 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thunder_keypad.kcm.bin:system/usr/keychars/thunder_keypad.kcm.bin \
     $(LOCAL_PATH)/configs/touch_mcs6000.idc:system/usr/idc/touch_mcs6000.idc
 
+# P500 Audio
+PRODUCT_PACKAGES += \
+    audio_policy.p500 \
+    audio.primary.p500
+
 # Full-featured build of the Open-Source
 $(call inherit-product, build/target/product/full.mk)
 
