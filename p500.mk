@@ -14,7 +14,8 @@ PRODUCT_COPY_FILES += \
 
 # p500 init
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/init.p500.rc:root/init.p500.rc
+    $(LOCAL_PATH)/init.p500.rc:root/init.p500.rc \
+    $(LOCAL_PATH)/ueventd.p500.rc:root/ueventd.p500.rc
 
 # P500 Audio
 PRODUCT_PACKAGES += \
