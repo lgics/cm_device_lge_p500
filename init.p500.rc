@@ -1,0 +1,19 @@
+# inherit qcom init
+import init.qcom.rc
+
+on boot
+
+# sensors
+  mkdir /data/amit 0777 ami304d ami304d
+  chmod 0666 /data/amit/AMI306_Config.ini
+  chmod 0666 /data/amit/AMI306_Config2.ini
+
+  chown compass system /sys/bus/i2c/drivers/proximity_gp2ap/4-0044/enable
+  chmod 0660 /sys/bus/i2c/drivers/proximity_gp2ap/4-0044/enable
+
+
+service ami304d /system/bin/ami304d
+    class main
+    user compass
+    group system
+

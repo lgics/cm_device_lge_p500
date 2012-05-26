@@ -6,11 +6,15 @@ $(call inherit-product-if-exists, vendor/lge/p500/p500-vendor.mk)
 
 DEVICE_PACKAGE_OVERLAYS += device/lge/p500/overlay
 
-# Configs
+# p500 configs
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thunder_keypad.kl:system/usr/keylayout/thunder_keypad.kl \
     $(LOCAL_PATH)/configs/thunder_keypad.kcm.bin:system/usr/keychars/thunder_keypad.kcm.bin \
     $(LOCAL_PATH)/configs/touch_mcs6000.idc:system/usr/idc/touch_mcs6000.idc
+
+# p500 init
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/init.p500.rc:root/init.p500.rc
 
 # P500 Audio
 PRODUCT_PACKAGES += \
