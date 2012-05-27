@@ -53,6 +53,9 @@ etc/wl/rtecdc-apsta.bin
 bin/ami304d
 lib/hw/sensors.p500.so
 
+## CHARGER
+bin/rmt_storage
+
 ## EGL
 lib/egl/libEGL_adreno200.so
 lib/egl/libGLESv1_CM_adreno200.so
