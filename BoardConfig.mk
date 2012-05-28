@@ -1,6 +1,10 @@
 -include vendor/lge/p500/BoardConfigVendor.mk
 -include device/lge/msm7x27-common/BoardConfigCommon.mk
 
+
+# Nedeed for sensors
+COMMON_GLOBAL_CFLAGS += -DUSE_LGE_ALS_DUMMY
+
 TARGET_KERNEL_CONFIG := cyanogenmod_p500_defconfig
 
 TARGET_BOOTLOADER_BOARD_NAME := p500
