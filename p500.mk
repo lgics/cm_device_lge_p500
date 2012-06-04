@@ -4,6 +4,8 @@ PRODUCT_AAPT_PREF_CONFIG := mdpi
 $(call inherit-product, device/lge/msm7x27-common/device.mk)
 $(call inherit-product-if-exists, vendor/lge/p500/p500-vendor.mk)
 
+DEVICE_PACKAGE_OVERLAYS += device/lge/p500/overlay
+
 # p500 configs
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thunder_keypad.kl:system/usr/keylayout/thunder_keypad.kl \
