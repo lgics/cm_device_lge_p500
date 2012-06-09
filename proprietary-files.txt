@@ -48,6 +48,7 @@ lib/libmmipl.so
 etc/firmware/BCM4325D1_004.002.004.0218.0248.hcd
 etc/wl/rtecdc.bin
 etc/wl/rtecdc-apsta.bin
+etc/wl/rtecdc-mfgtest.bin
 
 ## HAL
 bin/ami304d
