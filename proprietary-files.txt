@@ -53,36 +53,3 @@ etc/wl/rtecdc-mfgtest.bin
 ## HAL
 bin/ami304d
 lib/hw/sensors.p500.so
-
-## EGL
-lib/egl/libEGL_adreno200.so
-lib/egl/libGLESv1_CM_adreno200.so
-lib/egl/libGLESv2_adreno200.so
-lib/egl/libq3dtools_adreno200.so
-lib/egl/libGLES_android.so
-lib/egl/eglsubAndroid.so
-lib/libsc-a2xx.so
-lib/libgsl.so
-etc/firmware/yamato_pfp.fw
-etc/firmware/yamato_pm4.fw
-
-## OMX Encoders/Decoders
-lib/libOmxAacDec.so
-lib/libOmxAacEnc.so
-lib/libOmxAdpcmDec.so
-lib/libOmxAmrDec.so
-lib/libOmxAmrEnc.so
-lib/libOmxAmrRtpDec.so
-lib/libOmxAmrwbDec.so
-lib/libOmxEvrcEnc.so
-lib/libOmxEvrcHwDec.so
-lib/libOmxH264Dec.so
-lib/libOmxMp3Dec.so
-lib/libOmxMpeg4Dec.so
-lib/libOmxOn2Dec.so
-lib/libOmxQcelp13Enc.so
-lib/libOmxQcelpHwDec.so
-lib/libOmxVidEnc.so
-lib/libOmxWmaDec.so
-lib/libOmxWmvDec.so
-lib/libmm-adspsvc.so
