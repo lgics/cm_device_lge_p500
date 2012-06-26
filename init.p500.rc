@@ -3,23 +3,13 @@ import init.qcom.rc
 
 on boot
 
-
     ## VIBRATOR
     chmod 0660 /sys/class/timed_output/vibrator/amp
 
     ## SENSOR
-	chown compass system /dev/ami304
-	chmod 0640 dev/ami304
-	chown compass system /dev/ami304daemon
-	chmod 0640 dev/ami304daemon
-	chown compass system /dev/ami304hal
-	chmod 0640 dev/ami304hal
 	mkdir /data/amit 0777 ami304d ami304d
 	chmod 0666 /data/amit/AMI306_Config.ini
-	chown compass system /dev/KR3DH
-	chmod 0640 /dev/KR3DH
-	chown compass system /dev/KR3DM
-	chmod 0640 /dev/KR3DM
+    chmod 0666 /data/amit/AMI306_Config2.ini
 
     ## PROXIMITY SENSOR
 	chown compass system /sys/bus/i2c/drivers/proximity_gp2ap/4-0044/enable
