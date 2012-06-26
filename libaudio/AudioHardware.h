@@ -38,6 +38,10 @@ namespace android_audio_legacy {
 using android::SortedVector;
 using android::Mutex;
 
+// P500 SPEAKER_IN_CALL fix
+#define AUDIO_DEVICE_OUT_SPEAKER_IN_CALL 0x4000
+
+
 // ----------------------------------------------------------------------------
 // Kernel driver interface
 //
@@ -175,7 +179,7 @@ public:
 
     virtual status_t    setVoiceVolume(float volume);
     virtual status_t    setMasterVolume(float volume);
-#ifdef HAVE_FM_RADIO
+#ifdef FM_RADIO
     virtual status_t    setFmVolume(float volume);
 #endif
     virtual status_t    setMode(int mode);
@@ -222,7 +226,7 @@ private:
     uint32_t    getInputSampleRate(uint32_t sampleRate);
     bool        checkOutputStandby();
     status_t    doRouting(AudioStreamInMSM72xx *input);
-#ifdef HAVE_FM_RADIO
+#ifdef FM_RADIO
     status_t    setFmOnOff(bool onoff);
 #endif
     AudioStreamInMSM72xx*   getActiveInput_l();
@@ -322,7 +326,7 @@ private:
             bool mDualMicEnabled;
             int  mTtyMode;
             bool mBuiltinMicSelected;
-#ifdef HAVE_FM_RADIO
+#ifdef FM_RADIO
             int mFmRadioEnabled;
             int mFmPrev;
 #endif
