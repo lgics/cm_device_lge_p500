@@ -1202,11 +1202,21 @@ status_t AudioHardware::setFmVolume(float v)
     int vol = lrint(v * 7.5);
     if (vol > 7)
         vol = 7;
-    LOGD("setFmVolume(%f)\n", v);
-    Mutex::Autolock lock(mLock);
-    set_volume_rpc(SND_DEVICE_CURRENT, SND_METHOD_VOICE, vol, m7xsnddriverfd);
+
+    float ratio = 0.2;
+    int volume = (unsigned int)(AudioSystem::logToLinear(v) * ratio);
+
+    struct msm_snd_set_fm_radio_vol_param args;
+    args.volume = volume;
+
+    LOGD("setFmVolume(%f)\n", volume);
+    if (ioctl(m7xsnddriverfd, SND_SET_FM_RADIO_VOLUME, &args) < 0) {
+        LOGE("set_volume_fm error.");
+        return -EIO;
+    }
     return NO_ERROR;
 }
+
 status_t AudioHardware::setFmOnOff(bool onoff)
 {
     mFmRadioEnabled = onoff;
