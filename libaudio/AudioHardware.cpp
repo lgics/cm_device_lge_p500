@@ -1198,22 +1198,19 @@ status_t AudioHardware::setFmVolume(float v)
         LOGW("setFmVolume(%f) over 1.0, assuming 1.0\n", v);
         v = 1.0;
     }
+    LOGD("setFmVolume(%f)\n", v);
 
-    int vol = lrint(v * 7.5);
-    if (vol > 7)
-        vol = 7;
-
-    float ratio = 0.2;
-    int volume = (unsigned int)(AudioSystem::logToLinear(v) * ratio);
-
+    // FM volume range: 0-20
+    int fm_vol  = lrint(v * 20);
     struct msm_snd_set_fm_radio_vol_param args;
-    args.volume = volume;
+    args.volume = fm_vol;
 
-    LOGD("setFmVolume(%f)\n", volume);
     if (ioctl(m7xsnddriverfd, SND_SET_FM_RADIO_VOLUME, &args) < 0) {
-        LOGE("set_volume_fm error.");
+        LOGE("snd_set_fm_radio_volume error.");
         return -EIO;
     }
+
+    LOGD("snd_set_fm_radio_volume(%d)\n", fm_vol);
     return NO_ERROR;
 }
 
