@@ -321,7 +321,7 @@ static uint32_t adev_get_supported_devices(const struct audio_hw_device *dev)
             AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET |
             AUDIO_DEVICE_OUT_SPEAKER_IN_CALL | // P500 SPEAKER_IN_CALL fix
             AUDIO_DEVICE_OUT_ALL_SCO |
-#ifdef FM_RADIO
+#ifdef HAVE_FM_RADIO
             AUDIO_DEVICE_OUT_FM |
 #endif
             AUDIO_DEVICE_OUT_DEFAULT |
@@ -356,7 +356,7 @@ static int adev_set_master_volume(struct audio_hw_device *dev, float volume)
     struct qcom_audio_device *qadev = to_ladev(dev);
     return qadev->hwif->setMasterVolume(volume);
 }
-#ifdef FM_RADIO
+#ifdef HAVE_FM_RADIO
 static int adev_set_fm_volume(struct audio_hw_device *dev, float volume)
 {
     struct qcom_audio_device *qadev = to_ladev(dev);
@@ -570,7 +570,7 @@ static int qcom_adev_open(const hw_module_t* module, const char* name,
     qadev->device.init_check = adev_init_check;
     qadev->device.set_voice_volume = adev_set_voice_volume;
     qadev->device.set_master_volume = adev_set_master_volume;
-#ifdef FM_RADIO
+#ifdef HAVE_FM_RADIO
     qadev->device.set_fm_volume = adev_set_fm_volume;
 #endif
     qadev->device.set_mode = adev_set_mode;
