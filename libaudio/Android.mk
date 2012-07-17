@@ -21,18 +21,13 @@ LOCAL_SRC_FILES := \
     AudioHardware.cpp \
     audio_hw_hal.cpp
 
-LOCAL_SHARED_LIBRARIES := \
-    libcutils       \
-    libutils        \
-    libmedia
+LOCAL_SHARED_LIBRARIES := libcutils libutils libmedia
 
 ifneq ($(TARGET_SIMULATOR),true)
     LOCAL_SHARED_LIBRARIES += libdl
 endif
 
-LOCAL_STATIC_LIBRARIES := \
-    libmedia_helper  \
-    libaudiohw_legacy
+LOCAL_STATIC_LIBRARIES := libmedia_helper libaudiohw_legacy
 
 LOCAL_MODULE := audio.primary.$(TARGET_BOOTLOADER_BOARD_NAME)
 LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
@@ -49,6 +44,8 @@ LOCAL_C_INCLUDES += system/core/include
 
 include $(BUILD_SHARED_LIBRARY)
 
+
+ifeq ("usedefault","audiopolicymanager")
 # -------------------------------------------------------------
 # The audio policy is implemented on top of legacy policy code
 # -------------------------------------------------------------
@@ -68,20 +65,14 @@ LOCAL_SRC_FILES := \
     AudioPolicyManager.cpp \
     audio_policy_hal.cpp
 
-LOCAL_SHARED_LIBRARIES := \
-    libcutils \
-    libutils \
-    libmedia
-
-LOCAL_STATIC_LIBRARIES := \
-    libaudiopolicy_legacy \
-    libmedia_helper
-
+LOCAL_SHARED_LIBRARIES := libcutils libutils libmedia
+LOCAL_STATIC_LIBRARIES := libaudiohw_legacy libmedia_helper libaudiopolicy_legacy
 LOCAL_MODULE := audio_policy.$(TARGET_BOOTLOADER_BOARD_NAME)
 LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
 LOCAL_MODULE_TAGS := optional
-
 LOCAL_C_INCLUDES := hardware/libhardware_legacy/audio
 
 
 include $(BUILD_SHARED_LIBRARY)
+
+endif #("usedefault","audiopolicymanager")

@@ -67,7 +67,7 @@ static int msm72xx_enable_preproc(bool state);
 static struct rx_iir_filter iir_cfg[3];
 static struct adrc_filter adrc_cfg[3];
 static struct mbadrc_filter mbadrc_cfg[3];
-eqalizer eqalizer[3];
+eqalizer equalizer[3];
 static uint16_t adrc_flag[3];
 static uint16_t mbadrc_flag[3];
 static uint16_t eq_flag[3];
@@ -79,7 +79,8 @@ static bool audpp_filter_inited = false;
 static bool adrc_filter_exists[3];
 static bool mbadrc_filter_exists[3];
 static int post_proc_feature_mask = 0;
-static bool playback_in_progress = false;
+static int new_post_proc_feature_mask = 0;
+static bool hpcm_playback_in_progress = false;
 
 //Pre processing parameters
 static struct tx_iir tx_iir_cfg[9];
@@ -167,7 +168,7 @@ AudioHardware::AudioHardware() :
         }
         else ALOGE("Could not retrieve number of MSM SND endpoints.");
 
-        int AUTO_VOLUME_ENABLED = 1; // setting enabled as default
+        int AUTO_VOLUME_ENABLED = 0; // setting disabled as default
 
         static const char *const path = "/system/etc/AutoVolumeControl.txt";
         int txtfd;
@@ -197,17 +198,18 @@ AudioHardware::AudioHardware() :
                 close(txtfd);
             }
 
-            if(read_buf[0] =='0')
-               AUTO_VOLUME_ENABLED = 0;
+            if(read_buf[0] =='1')
+               AUTO_VOLUME_ENABLED = 1;
 
             munmap(read_buf, st.st_size);
             close(txtfd);
         }
 
+        ALOGD("Auto Volume Enabled= %d", AUTO_VOLUME_ENABLED);
         ioctl(m7xsnddriverfd, SND_AVC_CTL, &AUTO_VOLUME_ENABLED);
         ioctl(m7xsnddriverfd, SND_AGC_CTL, &AUTO_VOLUME_ENABLED);
-    }
-	else ALOGE("Could not open MSM SND driver.");
+    }	else 
+          ALOGE("Could not open MSM SND driver.");
 }
 
 AudioHardware::~AudioHardware()
@@ -272,7 +274,7 @@ void AudioHardware::closeOutputStream(AudioStreamOut* out) {
     if (mOutput == 0 || mOutput != out) {
         ALOGW("Attempt to close invalid output stream");
     }
-    else {
+    else if (mOutput == out) {
         delete mOutput;
         mOutput = 0;
     }
@@ -284,17 +286,6 @@ AudioStreamIn* AudioHardware::openInputStream(
 {
     // check for valid input source
     if (!AudioSystem::isInputDevice((AudioSystem::audio_devices)devices)) {
-        return 0;
-    }
-
-    if ( (mMode == AudioSystem::MODE_IN_CALL) &&
-         (getInputSampleRate(*sampleRate) > AUDIO_HW_IN_SAMPLERATE) &&
-         (*format == AUDIO_HW_IN_FORMAT) )
-    {
-        ALOGE("PCM recording, in a voice call, with sample rate more than 8K not supported \
-                re-configure with 8K and try software re-sampler ");
-        *status = BAD_VALUE;
-        *sampleRate = AUDIO_HW_IN_SAMPLERATE;
         return 0;
     }
 
@@ -320,14 +311,16 @@ AudioStreamIn* AudioHardware::openInputStream(
 void AudioHardware::closeInputStream(AudioStreamIn* in) {
     Mutex::Autolock lock(mLock);
 
-    ssize_t index = mInputs.indexOf((AudioStreamInMSM72xx *)in);
-    if (index < 0) {
-        ALOGW("Attempt to close invalid input stream");
-    } else {
+    ssize_t index = -1;
+    if((index = mInputs.indexOf((AudioStreamInMSM72xx *)in)) >= 0) {
+        ALOGV("closeInputStream AudioStreamInMSM72xx");
         mLock.unlock();
         delete mInputs[index];
         mLock.lock();
         mInputs.removeAt(index);
+    }
+    else {
+        ALOGE("Attempt to close invalid input stream");
     }
 }
 
@@ -439,6 +432,12 @@ status_t AudioHardware::setParameters(const String8& keyValuePairs)
         }
         if(mMode != AudioSystem::MODE_IN_CALL){
            return NO_ERROR;
+        }
+
+        ALOGI("Changed TTY Mode=%s", value.string());
+        if((mMode == AudioSystem::MODE_IN_CALL) &&
+           (mCurSndDevice == SND_DEVICE_HEADSET)) {
+           doRouting(NULL);
         }
     } else {
         mTtyMode = TTY_OFF;
@@ -600,10 +599,10 @@ int check_and_set_audpp_parameters(char *buf, int size)
             return -1;
         }
         eq_cal = (void *(*) (int32_t, int32_t, int32_t, uint16_t, int32_t, int32_t *, int32_t *, uint16_t *))::dlsym(audioeq, "audioeq_calccoefs");
-        memset(&eqalizer[device_id], 0, sizeof(eqalizer));
+        memset(&equalizer[device_id], 0, sizeof(eqalizer));
         /* Temp add the bands here */
-        eqalizer[device_id].bands = 8;
-        for (i = 0; i < eqalizer[device_id].bands; i++) {
+        equalizer[device_id].bands = 8;
+        for (i = 0; i < equalizer[device_id].bands; i++) {
 
             eq[i].gain = (uint16_t)strtol(p, &ps, 16);
 
@@ -624,12 +623,12 @@ int check_and_set_audpp_parameters(char *buf, int size)
 
             eq_cal(eq[i].gain, eq[i].freq, 48000, eq[i].type, eq[i].qf, (int32_t*)numerator, (int32_t *)denominator, shift);
             for (j = 0; j < 6; j++) {
-                eqalizer[device_id].params[ ( i * 6) + j] = numerator[j];
+                equalizer[device_id].params[ ( i * 6) + j] = numerator[j];
             }
             for (j = 0; j < 4; j++) {
-                eqalizer[device_id].params[(eqalizer[device_id].bands * 6) + (i * 4) + j] = denominator[j];
+                equalizer[device_id].params[(equalizer[device_id].bands * 6) + (i * 4) + j] = denominator[j];
             }
-            eqalizer[device_id].params[(eqalizer[device_id].bands * 10) + i] = shift[0];
+            equalizer[device_id].params[(equalizer[device_id].bands * 10) + i] = shift[0];
         }
         ::dlclose(audioeq);
 
@@ -930,6 +929,14 @@ static int msm72xx_enable_postproc(bool state)
 {
     int fd;
     int device_id=0;
+    char postProc[128];
+
+    property_get("audio.legacy.postproc", postProc, "0");
+
+    if (!(strcmp("true",postProc) == 0)) {
+        ALOGV("Legacy Post Proc disabled.");
+        return 0;
+    }
 
     if (!audpp_filter_inited)
     {
@@ -1017,7 +1024,7 @@ static int msm72xx_enable_postproc(bool state)
     else if ((post_proc_feature_mask & EQ_ENABLE) && state)
     {
         ALOGI("Setting EQ Filter");
-        if (ioctl(fd, AUDIO_SET_EQ, &eqalizer[device_id]) < 0) {
+        if (ioctl(fd, AUDIO_SET_EQ, &equalizer[device_id]) < 0) {
             ALOGE("set Equalizer error.");
         }
     }
@@ -1051,16 +1058,14 @@ static int msm72xx_enable_postproc(bool state)
             close(fd);
             return -EPERM;
         }
-    } else{
-        int disable_mask = 0;
+    } else {
+        if(post_proc_feature_mask & MBADRC_ENABLE) post_proc_feature_mask &= MBADRC_DISABLE;
+        if(post_proc_feature_mask & ADRC_ENABLE) post_proc_feature_mask &= ADRC_DISABLE;
+        if(post_proc_feature_mask & EQ_ENABLE) post_proc_feature_mask &= EQ_DISABLE;
+        if(post_proc_feature_mask & RX_IIR_ENABLE) post_proc_feature_mask &= RX_IIR_DISABLE;
 
-        if(post_proc_feature_mask & MBADRC_ENABLE) disable_mask &= MBADRC_DISABLE;
-        if(post_proc_feature_mask & ADRC_ENABLE) disable_mask &= ADRC_DISABLE;
-        if(post_proc_feature_mask & EQ_ENABLE) disable_mask &= EQ_DISABLE;
-        if(post_proc_feature_mask & RX_IIR_ENABLE) disable_mask &= RX_IIR_DISABLE;
-
-        ALOGI("disabling post proc features with mask 0x%04x", disable_mask);
-        if (ioctl(fd, AUDIO_ENABLE_AUDPP, &disable_mask) < 0) {
+        ALOGI("disabling post proc features with mask 0x%04x", post_proc_feature_mask);
+        if (ioctl(fd, AUDIO_ENABLE_AUDPP, &post_proc_feature_mask) < 0) {
             ALOGE("enable audpp error");
             close(fd);
             return -EPERM;
@@ -1312,7 +1317,6 @@ status_t AudioHardware::doRouting(AudioStreamInMSM72xx *input)
     uint32_t outputDevices = mOutput->devices();
     status_t ret = NO_ERROR;
     int new_snd_device = -1;
-    int new_post_proc_feature_mask = 0;
 
     //int (*msm72xx_enable_audpp)(int);
     //msm72xx_enable_audpp = (int (*)(int))::dlsym(acoustic, "msm72xx_enable_audpp");
@@ -1492,14 +1496,14 @@ status_t AudioHardware::doRouting(AudioStreamInMSM72xx *input)
         ret = doAudioRouteOrMute(new_snd_device);
 
        //disable post proc first for previous session
-       if (playback_in_progress)
+       if (hpcm_playback_in_progress)
            msm72xx_enable_postproc(false);
 
        //enable post proc for new device
        snd_device = new_snd_device;
        post_proc_feature_mask = new_post_proc_feature_mask;
 
-       if (playback_in_progress)
+       if (hpcm_playback_in_progress)
            msm72xx_enable_postproc(true);
 
        mCurSndDevice = new_snd_device;
@@ -1686,7 +1690,8 @@ ssize_t AudioHardware::AudioStreamOutMSM72xx::write(const void* buffer, size_t b
     if (mStartCount) {
         if (--mStartCount == 0) {
             ioctl(mFd, AUDIO_START, 0);
-            playback_in_progress = true;
+            hpcm_playback_in_progress = true;
+            post_proc_feature_mask = new_post_proc_feature_mask;
             //enable post processing
             msm72xx_enable_postproc(true);
         }
@@ -1709,8 +1714,8 @@ status_t AudioHardware::AudioStreamOutMSM72xx::standby()
     status_t status = NO_ERROR;
     if (!mStandby && mFd >= 0) {
         //disable post processing
+        hpcm_playback_in_progress = false;
         msm72xx_enable_postproc(false);
-        playback_in_progress = false;
         ::close(mFd);
         mFd = -1;
     }
@@ -1796,19 +1801,26 @@ status_t AudioHardware::AudioStreamOutMSM72xx::getRenderPosition(uint32_t *dspFr
 }
 
 // ----------------------------------------------------------------------------
-
+int AudioHardware::AudioStreamInMSM72xx::InstanceCount = 0;
 AudioHardware::AudioStreamInMSM72xx::AudioStreamInMSM72xx() :
     mHardware(0), mFd(-1), mState(AUDIO_INPUT_CLOSED), mRetryCount(0),
     mFormat(AUDIO_HW_IN_FORMAT), mChannels(AUDIO_HW_IN_CHANNELS),
     mSampleRate(AUDIO_HW_IN_SAMPLERATE), mBufferSize(AUDIO_HW_IN_BUFFERSIZE),
     mAcoustics((AudioSystem::audio_in_acoustics)0), mDevices(0)
 {
+    AudioStreamInMSM72xx::InstanceCount++;
 }
 
 status_t AudioHardware::AudioStreamInMSM72xx::set(
         AudioHardware* hw, uint32_t devices, int *pFormat, uint32_t *pChannels, uint32_t *pRate,
         AudioSystem::audio_in_acoustics acoustic_flags)
 {
+    if(AudioStreamInMSM72xx::InstanceCount > 1)
+    {
+        ALOGE("More than one instance of recording not supported");
+        return -EBUSY;
+    }
+
     if ((pFormat == 0) ||
         ((*pFormat != AUDIO_HW_IN_FORMAT) &&
          (*pFormat != AudioSystem::AMR_NB) &&
@@ -1825,12 +1837,14 @@ status_t AudioHardware::AudioStreamInMSM72xx::set(
     uint32_t rate = hw->getInputSampleRate(*pRate);
     if (rate != *pRate) {
         *pRate = rate;
+        ALOGE(" sample rate does not match\n");
         return BAD_VALUE;
     }
 
     if (pChannels == 0 || (*pChannels & (AudioSystem::CHANNEL_IN_MONO | AudioSystem::CHANNEL_IN_STEREO)) == 0)
     {
         *pChannels = AUDIO_HW_IN_CHANNELS;
+        ALOGE(" Channel count does not match\n");
         return BAD_VALUE;
     }
 
@@ -1893,6 +1907,7 @@ status_t AudioHardware::AudioStreamInMSM72xx::set(
     ALOGV("buffer_count: %u", config.buffer_count);
     ALOGV("channel_count: %u", config.channel_count);
     ALOGV("sample_rate: %u", config.sample_rate);
+    ALOGV("input device: %x", devices);
 
     mDevices = devices;
     mFormat = AUDIO_HW_IN_FORMAT;
@@ -2134,6 +2149,7 @@ static int msm72xx_enable_preproc(bool state)
 AudioHardware::AudioStreamInMSM72xx::~AudioStreamInMSM72xx()
 {
     ALOGV("AudioStreamInMSM72xx destructor");
+    AudioStreamInMSM72xx::InstanceCount--;
     standby();
 }
 
@@ -2195,11 +2211,9 @@ ssize_t AudioHardware::AudioStreamInMSM72xx::read( void* buffer, ssize_t bytes)
 
         ssize_t bytesRead = ::read(mFd, p, count);
         if (bytesRead > 0) {
-            ALOGV("Number of Bytes read = %d", bytesRead);
             count -= bytesRead;
             p += bytesRead;
             bytes += bytesRead;
-            ALOGV("Total Number of Bytes read = %d", bytes);
 
             if (mFormat == AudioSystem::AAC){
                 *frameSizePtr =  bytesRead;
@@ -2281,7 +2295,7 @@ status_t AudioHardware::AudioStreamInMSM72xx::setParameters(const String8& keyVa
     ALOGV("AudioStreamInMSM72xx::setParameters() %s", keyValuePairs.string());
 
     if (param.getInt(key, device) == NO_ERROR) {
-        ALOGV("set input routing %x", device);
+        ALOGD("set input routing %x", device);
         if (device & (device - 1)) {
             status = BAD_VALUE;
         } else {

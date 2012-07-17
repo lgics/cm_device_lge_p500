@@ -309,6 +309,7 @@ private:
                 AudioSystem::audio_in_acoustics mAcoustics;
                 uint32_t    mDevices;
                 bool        mFirstread;
+                static int InstanceCount;
     };
 
             static const uint32_t inputSamplingRates[];
