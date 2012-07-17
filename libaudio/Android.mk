@@ -9,7 +9,7 @@ include $(CLEAR_VARS)
 
 
 ifeq ($(BOARD_HAVE_BLUETOOTH),true)
-    LOCAL_CFLAGS += -DWITH_A2DP
+##    LOCAL_CFLAGS += -DWITH_A2DP
 endif
 
 ifeq ($(BOARD_COMBO_DEVICE_SUPPORTED),true)
@@ -53,7 +53,7 @@ include $(CLEAR_VARS)
 
 
 ifeq ($(BOARD_HAVE_BLUETOOTH),true)
-    LOCAL_CFLAGS += -DWITH_A2DP
+##    LOCAL_CFLAGS += -DWITH_A2DP
 endif
 
 ifeq ($(BOARD_COMBO_DEVICE_SUPPORTED),true)

@@ -232,7 +232,7 @@ audio_devices_t AudioPolicyManager::getDeviceForStrategy(routing_strategy strate
     return (audio_devices_t)device;
 }
 
-status_t AudioPolicyManager::checkAndSetVolume(int stream, int index, audio_io_handle_t output, uint32_t device, int delayMs, bool force)
+status_t AudioPolicyManager::checkAndSetVolume(int stream, int index, audio_io_handle_t output, audio_devices_t device, int delayMs, bool force)
 {
 
     // do not change actual stream volume if the stream is muted
@@ -280,8 +280,8 @@ status_t AudioPolicyManager::checkAndSetVolume(int stream, int index, audio_io_h
         } else {
             voiceVolume = 1.0;
         }
-        
-        if ((voiceVolume >= 0 && output == mHardwareOutput)
+
+        if ((voiceVolume != mLastVoiceVolume && output == mPrimaryOutput)
 #ifdef HAVE_FM_RADIO
           && (!(mAvailableOutputDevices & AudioSystem::DEVICE_OUT_FM))
 #endif
