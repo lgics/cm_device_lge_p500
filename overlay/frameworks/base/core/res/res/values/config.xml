@@ -10,9 +10,9 @@
             16 - App switch
          For example, a device with Home, Back and Menu keys would set this
          config to 7. -->
-    <integer name="config_deviceHardwareKeys">15</integer>
+    <!--<integer name="config_deviceHardwareKeys">15</integer>-->
     <!-- Values greater or equal to 0 will enable electronbeam screen-on
          animation with the specified delay (in milliseconds), -1 will disable the animation -->
-    <integer name="config_screenOnAnimation">0</integer>
+    <!--<integer name="config_screenOnAnimation">0</integer>-->
 </resources>
 
