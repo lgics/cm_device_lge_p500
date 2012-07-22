@@ -37,6 +37,8 @@ lib/libsnd.so
 
 ## AUDIO
 lib/libaudioeq.so
+lib/hw/audio.primary.p500.so 
+lib/hw/audio_policy.p500.so
 
 ## CAMERA
 lib/liboemcamera.so
