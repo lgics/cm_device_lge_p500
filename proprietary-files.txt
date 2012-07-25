@@ -6,9 +6,12 @@
 ## RIL
 bin/qmuxd
 etc/flex/flex.xml
+## OLDBB != NEWBB
 lib/libgstk_exp.so
-lib/libqmi.so
 lib/libpbmlib.so
+lib/libwms.so
+## OLDBB = NEWBB
+lib/libqmi.so
 lib/libmmgsdilib.so
 lib/libril-qcril-hook-oem.so
 lib/libdsm.so
@@ -17,7 +20,6 @@ lib/libril-qc-qmi-1.so
 lib/libnv.so
 lib/libauth.so
 lib/libril.so
-lib/libwms.so
 lib/libdiag.so
 lib/liboem_rapi.so
 lib/libgsdi_exp.so
