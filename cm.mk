@@ -1,5 +1,5 @@
 # Prepare for new BootAnimation
-TARGET_BOOTANIMATION_NAME := vertical-320x480
+TARGET_BOOTANIMATION_NAME := vertical-320
 
 # Include GSM stuff
 $(call inherit-product, vendor/cm/config/gsm.mk)
