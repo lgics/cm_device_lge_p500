@@ -1,6 +1,6 @@
 # Boot Animation
-10	TARGET_SCREEN_HEIGHT := 480
-11	TARGET_SCREEN_WIDTH := 320
+TARGET_SCREEN_HEIGHT := 480
+TARGET_SCREEN_WIDTH := 320
 
 # Include GSM stuff
 $(call inherit-product, vendor/cm/config/gsm.mk)
