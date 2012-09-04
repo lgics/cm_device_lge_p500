@@ -22,18 +22,10 @@ PRODUCT_PACKAGES += \
     audio_policy.p500 \
     audio.primary.p500
 
-# Live wallpapers
-PRODUCT_COPY_FILES += packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml
-PRODUCT_PACKAGES += \
-    LiveWallpapers \
-    LiveWallpapersPicker \
-    VisualizationWallpapers \
-    librs_jni
-
 # Full-featured build of the Open-Source
 $(call inherit-product, build/target/product/full.mk)
 
-PRODUCT_NAME := p500
+PRODUCT_NAME := full_p500
 PRODUCT_DEVICE := p500
 PRODUCT_MODEL := LG-P500
 
