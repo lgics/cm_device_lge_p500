@@ -19,11 +19,14 @@ mobiledata.interfaces=rmnet0,rmnet1,rmnet2
 
 ro.bt.bdaddr_path=/data/misc/bd_addr
 
-# see also: init.qcom.usb.rc and init.qcom.post_boot.sh
+# See also: init.qcom.usb.rc and init.qcom.post_boot.sh
 persist.sys.usb.config=mass_storage,adb
 
-# enable dithering (always)
+# Enable dithering (always)
 persist.sys.use_dithering=2
+
+# Force use of GPU on 2D rendering
+# persist.sys.force_hw_ui=true
 
 # Store dalvik-cache on /data
 dalvik.vm.dexopt-data-only=1
