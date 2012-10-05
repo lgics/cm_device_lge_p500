@@ -10,6 +10,8 @@ ro.sf.lcd_density=160
 persist.sys.use_dithering=2
 video.accelerate.hw=1
 debug.sf.hw=1
+debug.enabletr=false
+debug.hwui.render_dirty_regions=false
 
 ## Media
 media.stagefright.enable-player=true
@@ -47,12 +49,18 @@ persist.rild.nitz_short_ons_1=
 persist.rild.nitz_short_ons_2=
 persist.rild.nitz_short_ons_3=
 
-## WiFi,\ and Bluetooth
+## WiFi and Bluetooth
 wifi.interface=wlan0
 wifi.supplicant_scan_interval=60
 ro.bt.bdaddr_path=/data/misc/bd_addr
 
-## Davlik-cache related
+## Davlik
+dalvik.vm.lockprof.threshold=500
+dalvik.vm.dexopt-flags=m=y
+dalvik.vm.heapstartsize=5m  
+dalvik.vm.heapgrowthlimit=24m  
+dalvik.vm.heapsize=48m
+dalvik.vm.execution-mode=int:jit
 # Store dalvik-cache on /data
 dalvik.vm.dexopt-data-only=1
 
@@ -67,7 +75,7 @@ ro.vold.umsdirtyratio=20
 # Fixes glitches with camcorder
 debug.camcorder.disablemeta=1
 
-## Hardware info (not used)
+## Hardware info (not used in CM)
 ro.device.gpu=Adreno 200
 ro.device.rear_cam=3.2 MP
 ro.device.front_cam=n/a
