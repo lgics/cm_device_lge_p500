@@ -1,6 +1,6 @@
 #
 # System.prop for LG Optimus One (P500)
-# Updated Sat Sept 29, 2012
+# Updated Sat Oct 10, 2012
 #
 
 ## Graphics
@@ -17,7 +17,7 @@ debug.hwui.render_dirty_regions=false
 media.stagefright.enable-player=true
 media.stagefright.enable-meta=true
 media.stagefright.enable-scan=true
-media.stagefright.enable-http=false
+media.stagefright.enable-http=true
 media.stagefright.enable-record=true
 
 ## Qualcomm related
@@ -27,9 +27,6 @@ debug.qctwa.statusbar=1
 debug.qctwa.preservebuf=1
 # Enables Qualcomm hardware
 com.qc.hardware=true
-
-## QVGA
-
 
 ## RIL and networks
 rild.libpath=/system/lib/libril-qc-1.so
