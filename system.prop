@@ -1,6 +1,6 @@
 #
 # System.prop for LG Optimus One (P500)
-# Updated Sat Oct 18, 2012
+# Updated Sat Oct 19, 2012
 #
 
 ## Graphics
@@ -45,7 +45,7 @@ media.stagefright.enable-qcp=true
 keyguard.no_require_sim=true
 
 ## Qualcomm related
-debug.gr.numframebuffers=2
+debug.gr.numframebuffers=3
 debug.qctwa.statusbar=1
 debug.qctwa.preservebuf=1
 # Enables Qualcomm hardware
