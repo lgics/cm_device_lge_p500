@@ -1,6 +1,6 @@
 #
 # System.prop for LG Optimus One (P500)
-# Updated Sat Oct 12, 2012
+# Updated Sat Oct 18, 2012
 #
 
 ## Graphics
@@ -12,9 +12,6 @@ video.accelerate.hw=1
 # Enable gpu composition: 0 => cpu composition, 1 => gpu composition
 # Note: must be 1 for debug.composition.type to work
 debug.sf.hw=1
-# Enable copybit composition
-debug.composition.type=mdp
-debug.performance.tuning=1
 
 ## HardwareRenderer properties
 # dirty_regions: "false" to disable partial invalidates, override if enabletr=true
@@ -22,9 +19,9 @@ debug.enabletr=false
 debug.hwui.render_dirty_regions=false
 hwui.disable_vsync=true
 hwui.print_config=choice
+persist.sys.strictmode.visual=false
 
 ## Media
-
 ro.media.enc.file.format=3gp,mp4
 ro.media.enc.vid.codec=m4v,h263
 ro.media.enc.vid.h263.width=176,640
@@ -43,17 +40,20 @@ media.stagefright.enable-meta=true
 media.stagefright.enable-scan=true
 media.stagefright.enable-http=true
 media.stagefright.enable-record=true
+media.stagefright.enable-aac=true
+media.stagefright.enable-qcp=true
 keyguard.no_require_sim=true
 windowsmgr.max_events_per_sec=150
 
 ## Qualcomm related
-# Triplebuffering
 # Force 3 buffers
 debug.gr.numframebuffers=3
 debug.qctwa.statusbar=1
 debug.qctwa.preservebuf=1
 # Enables Qualcomm hardware
 com.qc.hardware=true
+# HDMI output
+com.qc.hdmi_out=false
 
 ## RIL and networks
 rild.libpath=/system/lib/libril-qc-1.so
@@ -77,6 +77,14 @@ persist.rild.nitz_short_ons_3=
 wifi.interface=wlan0
 wifi.supplicant_scan_interval=60
 ro.bt.bdaddr_path=/data/misc/bd_addr
+
+## GPS and Location
+ro.com.google.locationfeatures=1
+ro.com.google.networklocation=1
+
+## Google Apps related
+ro.com.google.gmsversion=2.3_r6
+ro.setupwizard.enable_bypass=1
 
 ## Compcache
 persist.service.zram=1
@@ -105,6 +113,7 @@ persist.service.adb.enable=1
 ro.vold.umsdirtyratio=20
 
 ## Camera and camcorder
+ro.product.camera=msm7x27
 persist.pmem.camera=4000000
 # Fixes glitches with camcorder
 debug.camcorder.disablemeta=1
