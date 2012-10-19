@@ -30,6 +30,10 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
 PRODUCT_PACKAGES += \
     Stk
 
+# Build LegacyCamera
+PRODUCT_PACKAGES += \
+    LegacyCamera
+
 # Release name and versioning
 PRODUCT_RELEASE_NAME := OptimusOne
 PRODUCT_VERSION_DEVICE_SPECIFIC :=
