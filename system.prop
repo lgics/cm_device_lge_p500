@@ -43,11 +43,9 @@ media.stagefright.enable-record=true
 media.stagefright.enable-aac=true
 media.stagefright.enable-qcp=true
 keyguard.no_require_sim=true
-windowsmgr.max_events_per_sec=150
 
 ## Qualcomm related
-# Force 3 buffers
-debug.gr.numframebuffers=3
+debug.gr.numframebuffers=2
 debug.qctwa.statusbar=1
 debug.qctwa.preservebuf=1
 # Enables Qualcomm hardware
@@ -86,10 +84,6 @@ ro.com.google.networklocation=1
 ro.com.google.gmsversion=2.3_r6
 ro.setupwizard.enable_bypass=1
 
-## Compcache
-persist.service.zram=1
-ro.zram.default=18
-
 ## Dalvik properties
 # dexop-flags:
 # "v="  verification 'n': none, 'r': remote, 'a': all
@@ -97,7 +91,7 @@ ro.zram.default=18
 # "m=y" register map
 dalvik.vm.lockprof.threshold=500
 dalvik.vm.dexopt-flags=m=y
-dalvik.vm.checkjni=false
+# dalvik.vm.checkjni=false
 dalvik.vm.heapstartsize=5m  
 dalvik.vm.heapgrowthlimit=24m  
 dalvik.vm.heapsize=48m
