@@ -26,14 +26,6 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
     BUILD_FINGERPRINT="lge/thunderg/thunderg:2.3.3/GRI40/LG-P500-V20g.19C11F164C:user/release-keys" \
     PRIVATE_BUILD_DESC="thunderg-user 2.3.3 GRI40 LG-P500-V20g.19C11F164C release-keys"
 
-# Build sim toolkit
-PRODUCT_PACKAGES += \
-    Stk
-
-# Build LegacyCamera
-PRODUCT_PACKAGES += \
-    LegacyCamera
-
 # Release name and versioning
 PRODUCT_RELEASE_NAME := OptimusOne
 PRODUCT_VERSION_DEVICE_SPECIFIC :=
