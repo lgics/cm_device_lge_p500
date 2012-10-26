@@ -1,6 +1,6 @@
 #
 # System.prop for LG Optimus One (P500)
-# Updated Sat Oct 18, 2012
+# Updated Sat Oct 25, 2012
 #
 
 ## Graphics
@@ -92,10 +92,10 @@ ro.setupwizard.enable_bypass=1
 dalvik.vm.lockprof.threshold=500
 dalvik.vm.dexopt-flags=m=y
 # dalvik.vm.checkjni=false
-dalvik.vm.heapstartsize=5m  
-dalvik.vm.heapgrowthlimit=24m  
-dalvik.vm.heapsize=48m
-dalvik.vm.execution-mode=int:jit
+# dalvik.vm.heapstartsize=5m  
+# dalvik.vm.heapgrowthlimit=24m  
+# dalvik.vm.heapsize=48m
+# dalvik.vm.execution-mode=int:jit
 # Store dalvik-cache on /data
 dalvik.vm.dexopt-data-only=1
 
