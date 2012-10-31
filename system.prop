@@ -1,6 +1,6 @@
 #
 # System.prop for LG Optimus One (P500)
-# Updated Sat Oct 25, 2012
+# Updated Sat Oct 31, 2012
 #
 
 ## Graphics
@@ -19,7 +19,6 @@ debug.enabletr=false
 debug.hwui.render_dirty_regions=false
 hwui.disable_vsync=true
 hwui.print_config=choice
-persist.sys.strictmode.visual=false
 
 ## Media
 ro.media.enc.file.format=3gp,mp4
@@ -45,13 +44,11 @@ media.stagefright.enable-qcp=true
 keyguard.no_require_sim=true
 
 ## Qualcomm related
-debug.gr.numframebuffers=2
-debug.qctwa.statusbar=1
-debug.qctwa.preservebuf=1
+# debug.gr.numframebuffers=2
+# debug.qctwa.statusbar=1
+# debug.qctwa.preservebuf=1
 # Enables Qualcomm hardware
 com.qc.hardware=true
-# HDMI output
-com.qc.hdmi_out=false
 
 ## RIL and networks
 rild.libpath=/system/lib/libril-qc-1.so
@@ -89,8 +86,8 @@ ro.setupwizard.enable_bypass=1
 # "v="  verification 'n': none, 'r': remote, 'a': all
 # "o="  optimization 'n': none, 'v': verified, 'a': all, 'f': full
 # "m=y" register map
-dalvik.vm.lockprof.threshold=500
-dalvik.vm.dexopt-flags=m=y
+# dalvik.vm.lockprof.threshold=500
+# dalvik.vm.dexopt-flags=m=y
 # dalvik.vm.checkjni=false
 # dalvik.vm.heapstartsize=5m  
 # dalvik.vm.heapgrowthlimit=24m  
