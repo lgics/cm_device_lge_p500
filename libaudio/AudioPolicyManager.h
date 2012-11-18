@@ -35,7 +35,7 @@ public:
 
         virtual ~AudioPolicyManager() {}
 
-        virtual uint32_t getDeviceForStrategy(routing_strategy strategy, bool fromCache = true);
+        virtual audio_devices_t getDeviceForStrategy(routing_strategy strategy, bool fromCache = true);
 protected:
         // true is current platform implements a back microphone
         virtual bool hasBackMicrophone() const { return false; }
@@ -44,7 +44,7 @@ protected:
         virtual bool a2dpUsedForSonification() const { return true; }
 #endif
         // check that volume change is permitted, compute and send new volume to audio hardware
-        status_t checkAndSetVolume(int stream, int index, audio_io_handle_t output, uint32_t device, int delayMs = 0, bool force = false);
+        status_t checkAndSetVolume(int stream, int index, audio_io_handle_t output, audio_devices_t device, int delayMs = 0, bool force = false);
 
 };
 };
