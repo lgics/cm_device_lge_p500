@@ -118,7 +118,7 @@ static uint32_t SND_DEVICE_NO_MIC_HEADSET=-1;
 // ----------------------------------------------------------------------------
 
 AudioHardware::AudioHardware() :
-    mInit(false), mMicMute(true), mBluetoothNrec(true), mBluetoothId(0),
+    mInit(false), mMicMute(true), mBluetoothNrec(true), mBluetoothId(0), mTtyMode(TTY_OFF),
     mOutput(0), mSndEndpoints(NULL), mCurSndDevice(-1),
     mDualMicEnabled(false), mBuiltinMicSelected(false)
 #ifdef HAVE_FM_RADIO
